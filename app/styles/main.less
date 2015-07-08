@@ -1,0 +1,37 @@
+@import "mybootstrap.less";
+@import "utils.less";
+@import "sidebar.less";
+@import "dashboard.less";
+
+#loading-bar .bar {
+  -webkit-transition: width 350ms;
+  -moz-transition: width 350ms;
+  -o-transition: width 350ms;
+  transition: width 350ms;
+
+  background: darken(@loading-bar-light, 5%);
+  position: fixed;
+  z-index: 10002;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  border-bottom-right-radius: 1px;
+  border-top-right-radius: 1px;
+}
+
+.scrollable-content {
+  overflow-y: scroll;
+}
+
+.base-drop-box {
+  background-color: #f1f1f1;
+  border-color: lightgray;
+  border-style: dashed;
+  vertical-align: middle;
+}
+
+.drop-box {
+  .base-drop-box;
+  height: 110px;
+}

@@ -1,0 +1,122 @@
+/* Toggle Styles */
+
+#wrapper {
+  padding-left: 0;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+  padding-left: @sidebar-width;
+}
+
+#sidebar-wrapper {
+  z-index: 1000;
+  position: fixed;
+  left: @sidebar-width;
+  width: 0;
+  height: 100%;
+  margin-left: -@sidebar-width;
+  overflow-y: auto;
+  background: @sidebar-bg-color;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+  width: @sidebar-width;
+}
+
+#page-content-wrapper {
+  width: 100%;
+  position: absolute;
+  padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+  position: absolute;
+  margin-right: -@sidebar-width;
+}
+
+/* Sidebar Styles */
+
+.sidebar-ul {
+  position: absolute;
+  top: 0;
+  width: @sidebar-width;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: #cccccc;
+
+  .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+  }
+
+  .active {
+    background-color: lighten(@sidebar-bg-color, 7%) !important;
+  }
+
+  .sidebar-li {
+    &:extend(.list-group-item);
+    background-color: transparent;
+    border-left: none;
+    border-right: none;
+    border-top: solid 1px @separator-color;
+    border-bottom: solid 1px @separator-color;
+    padding: 0px;
+
+    .clickable-area {
+      cursor: pointer;
+      padding: 6px 15px;
+      color: #cccccc;
+
+      a {
+        color: #cccccc;
+      }
+
+      &:hover {
+        background-color: lighten(@sidebar-bg-color, 5%);
+        text-decoration-line: none;
+      }
+    }
+
+    .sidebar-icon {
+      vertical-align: middle;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  #wrapper {
+    padding-left: @sidebar-width;
+  }
+
+  #wrapper.toggled {
+    padding-left: 0;
+  }
+
+  #sidebar-wrapper {
+    width: @sidebar-width;
+  }
+
+  #wrapper.toggled #sidebar-wrapper {
+    width: 0;
+  }
+
+  #page-content-wrapper {
+    padding: 20px;
+    position: relative;
+  }
+
+  #wrapper.toggled #page-content-wrapper {
+    position: relative;
+    margin-right: 0;
+  }
+}

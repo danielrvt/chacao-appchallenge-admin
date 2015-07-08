@@ -1,0 +1,6 @@
+{
+  "name": "cobalt-burger",
+  "root": "./",
+  "clean_urls": true,
+  "error_page": "y"
+}
