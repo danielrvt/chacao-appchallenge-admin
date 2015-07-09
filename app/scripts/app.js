@@ -51,10 +51,10 @@ angular
         templateUrl: 'views/inner/dashboard.html',
         controller: 'DashboardCtrl'
       })
-      .state('dashboard.sample', {
-        url: '/restaurants',
-        templateUrl: 'views/inner/sample.html',
-        controller: 'SampleCtrl'
+      .state('dashboard.reports', {
+        url: '/reports',
+        templateUrl: 'views/inner/reports.html',
+        controller: 'ReportsCtrl'
       })
   })
   .factory('authHttpInterceptor', ['$q', '$location', '$sessionStorage', 'apiKey', function ($q, $location, $sessionStorage, apiKey) {
@@ -66,7 +66,13 @@ angular
         return $q.reject(rejection);
       },
       request: function (req) {
-        //TODO Custom headers
+        if (req.url.indexOf('/session')  > -1) {
+          req.headers['API-Key'] = apiKey;
+        }
+
+        if (req.url.indexOf('/session') == -1 && $sessionStorage.session) {
+          req.headers['Cookie-Id'] = $sessionStorage.session.cookieId;
+        }
         return req;
       }
     }

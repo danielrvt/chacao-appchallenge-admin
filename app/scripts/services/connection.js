@@ -1,11 +1,12 @@
 'use strict';
 
 angular.module('dndAdminTemplate')
-  .value('apiBaseUrl', '{{API base URL here}}')
-  .value('apiKey', '{{API Key here}}')
+  .value('apiBaseUrl', 'http://ec2-52-10-59-85.us-west-2.compute.amazonaws.com:5000')
+  .value('apiKey', 'dt5nF0xBPNQ61dqQEofuFO5t4x9iu8l6')
   .factory('resources', [function () {
     return {
-      //TODO Set your resources here.
+      session: '/session',
+      reports: '/reports'
     }
   }])
   .factory('restangularInstance', ['Restangular', 'apiBaseUrl', function (Restangular, apiBaseUrl) {

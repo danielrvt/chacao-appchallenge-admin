@@ -11,7 +11,14 @@ angular.module('dndAdminTemplate')
     $scope.login = function (username, password) {
       if (!username || !password) return toastr.error('login-missing-username-or-password');
 
-      $state.go('dashboard.sample');
+      restangularInstance.all(resources.session).post({user: $scope.username, password: $scope.password})
+        .then(function (session) {
+          $sessionStorage.session = session.data.plain();
+          $state.go('dashboard.reports');
+        })
+        .catch(function (err) {
+          toastr.error(err);
+        });
     };
 
   }]);
