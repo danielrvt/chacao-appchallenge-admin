@@ -34,6 +34,7 @@
 #page-content-wrapper {
   width: 100%;
   position: absolute;
+  padding-top: 21px;
 }
 
 #wrapper.toggled #page-content-wrapper {
@@ -50,7 +51,7 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  color: #cccccc;
+  color: @sidebar-color;
 
   .sidebar-brand {
     height: 65px;
@@ -74,10 +75,10 @@
     .clickable-area {
       cursor: pointer;
       padding: 6px 15px;
-      color: #cccccc;
+      color: @sidebar-color;
 
       a {
-        color: #cccccc;
+        color: @sidebar-color;
       }
 
       &:hover {
@@ -110,7 +111,7 @@
   }
 
   #page-content-wrapper {
-    padding-top: 50px;
+    //padding-top: 50px;
     position: relative;
     margin-left: -15px;
   }
