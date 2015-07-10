@@ -1,17 +1,21 @@
 <div class="no-padding-fluid-container">
   <div class="row">
     <div class="col-sm-9">
-      <map center="10.497958, -66.856484" zoom="13" style="height: 100vh">
-        <marker position="10.492868,-66.856484" title="Hello World!"></marker>
-        <marker position="10.488749,-66.856489" title="Hello World!"></marker>
-        <marker position="10.495845,-66.856486" title="Hello World!"></marker>
-        <marker position="10.489631,-66.856481" title="Hello World!"></marker>
-      </map>
+
+
+      <openlayers ol-center="ven" height="100vh">
+        <ol-layer ol-layer-properties="wms">
+          <ol-marker ng-repeat="marker in markers"
+                     lat="marker.lat"
+                     lon="marker.lon"
+            ></ol-marker>
+        </ol-layer>
+      </openlayers>
 
     </div>
 
     <div class="col-sm-3">
-
+      <h2>Reportes</h2>
     </div>
   </div>
 </div>

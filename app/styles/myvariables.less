@@ -5,7 +5,7 @@
 //== Custom Colors
 @sidebar-color: white;
 @sidebar-bg-color: #E68A00;
-@separator-color: darken(@sidebar-color, 10%);
+@separator-color: lighten(@navbar-inverse-bg, 20%);//darken(@sidebar-color, 10%);
 @highlight-color: #595959;
 
 @loading-bar-light: #00BFE6;
@@ -375,7 +375,7 @@
 //##
 
 // Basics of a navbar
-@navbar-height:                    50px;
+@navbar-height:                    30px;
 @navbar-margin-bottom:             @line-height-computed;
 @navbar-border-radius:             @border-radius-base;
 @navbar-padding-horizontal:        floor((@grid-gutter-width / 2));
@@ -409,7 +409,7 @@
 //=== Inverted navbar
 // Reset inverted navbar basics
 @navbar-inverse-color:                      lighten(@gray-light, 15%);
-@navbar-inverse-bg:                         #222;
+@navbar-inverse-bg:                         lighten(#222, 7%);
 @navbar-inverse-border:                     darken(@navbar-inverse-bg, 10%);
 
 // Inverted navbar links

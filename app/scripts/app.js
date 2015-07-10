@@ -25,7 +25,7 @@ angular
     'ngStorage',
     'angular-loading-bar',
     'ngFileUpload',
-    'ngMap'
+    'openlayers-directive'
 
   ])
   .config(function ($translateProvider, $stateProvider, $urlRouterProvider) {
