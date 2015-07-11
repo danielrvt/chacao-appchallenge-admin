@@ -23,7 +23,7 @@ angular.module('dndAdminTemplate')
     var namespace = '/reports'; // change to an empty string to use the global namespace
     var socket = io.connect('http://ec2-52-10-59-85.us-west-2.compute.amazonaws.com:5000' + namespace);
     socket.on('connect', function() {
-      socket.emit('register', {cookie_id: 'e57fea1586d87bd467d00199ed3825ab93457c5333909762e4f5b15cfe3ebd86'});
+      socket.emit('register', {cookie_id: $sessionStorage.session.cookieId});
     });
     socket.on('message', function(json) {
       console.log("message", json);
