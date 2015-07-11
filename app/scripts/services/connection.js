@@ -6,7 +6,8 @@ angular.module('dndAdminTemplate')
   .factory('resources', [function () {
     return {
       session: '/session',
-      reports: '/reports'
+      reports: '/reports',
+      report: '/report'
     }
   }])
   .factory('restangularInstance', ['Restangular', 'apiBaseUrl', function (Restangular, apiBaseUrl) {
