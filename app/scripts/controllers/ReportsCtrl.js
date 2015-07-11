@@ -28,7 +28,10 @@ angular.module('dndAdminTemplate')
           });
 
           modalInstance.result.then(function (result) {
-            console.log(result)
+            console.log(result);
+            if (result.status == 'RESOLVED' || result.status == 'INVALIDATED') {
+
+            }
           }, function () {
           });
 
@@ -43,11 +46,11 @@ angular.module('dndAdminTemplate')
         $scope.markers = _.map(reports, function (r) {
           var marker = new google.maps.Marker({
             id: r.id,
-            position: new google.maps.LatLng(r.location.coordinates[1], r.location.coordinates[0]),
+            position: new google.maps.LatLng(r.location.coordinates[0], r.location.coordinates[1]),
             map: map
           });
-
           google.maps.event.addListener(marker, 'click', markerClick);
+          console.log(r.location.coordinates, r.status);
         });
       };
     };
@@ -76,6 +79,9 @@ angular.module('dndAdminTemplate')
           _.each(results, function (result) {
             $scope.reports = $scope.reports.concat(result.data.plain().results);
           });
+          $scope.reports = _.filter($scope.reports, function (r) {
+            return r.status != 'RESOLVED' || r.status != 'INVALIDATED';
+          });
           return $scope.reports;
         }).then(createMarkersFromReports(map))
         .catch(function (err) {
@@ -86,8 +92,9 @@ angular.module('dndAdminTemplate')
 
   }]).controller('ReportModalCtrl', ['$scope', '$modalInstance', 'report', 'resources', '$sessionStorage', 'restangularInstance', 'toastr', 'Upload', '$q', '$translate', function ($scope, $modalInstance, report, resources, $sessionStorage, restangularInstance, toastr, Upload, $q, $translate) {
 
-    console.log(report);
     $scope.report = report;
+    $scope.comments = '';
+
     $scope.translateType = function (type) {
       var dictionary = {
         'CRIME': 'Delito',
@@ -115,10 +122,20 @@ angular.module('dndAdminTemplate')
     };
 
     $scope.nextPosibleStatus = function (currentStatus) {
-      console.log(currentStatus);
       if (currentStatus == 'RECEIVED') return ['VALIDATED', 'INVALIDATED', 'RESOLVED'];
       if (currentStatus == 'VALIDATED') return ['INVALIDATED', 'RESOLVED'];
       return [];
+    };
+
+    $scope.changeStatus = function (report, newStatus, comments) {
+      console.log(newStatus, comments);
+      restangularInstance.one('/admin' + resources.report, report.id).customPUT({
+        status: newStatus,
+        comments: comments
+      })
+        .then(function (response) {
+          $scope.report = response.data.plain();
+        });
     };
 
     $scope.ok = function () {
@@ -126,7 +143,7 @@ angular.module('dndAdminTemplate')
     };
 
     $scope.cancel = function () {
-      $modalInstance.dismiss('cancel');
+      $modalInstance.close($scope.report);
     };
 
   }]);

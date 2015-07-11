@@ -68,10 +68,7 @@ angular
         return $q.reject(rejection);
       },
       request: function (req) {
-        if (req.url.indexOf('/session')  > -1) {
-          req.headers['API-Key'] = apiKey;
-        }
-
+        req.headers['API-Key'] = apiKey;
         if (req.url.indexOf('/session') == -1 && $sessionStorage.session) {
           req.headers['Cookie-Id'] = $sessionStorage.session.cookieId;
         }

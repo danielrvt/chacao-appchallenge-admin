@@ -20,16 +20,23 @@
   <div class="modal-body">
     <div class="row">
       <div class="col-sm-12 text-center">{{report.description}}</div>
-      <div class="col-sm-12 text-center"><img ng-src="{{report.photo_url}}"></div>
+      <div class="col-sm-12 text-center"><img class="img-responsive" ng-src="{{report.photo_url}}"></div>
     </div>
   </div>
   <div class="modal-footer">
+
+    <div class="margin-bottom-md" ng-if="nextPosibleStatus(report.status, comments).length > 0">
+      <div class="row">
+        <div class="col-sm-2"><label class="text-left">Comentarios</label></div>
+        <div class="col-sm-12"><textarea class="form-control" ng-model="comments"></textarea></div>
+      </div>
+    </div>
 
     <button ng-repeat="status in nextPosibleStatus(report.status)"
             class="btn btn-primary" ng-click="changeStatus(report, status)">
       Marcar como {{translateStatus(status)}}
     </button>
 
-    <button class="btn btn-warning" ng-click="cancel()">Cancelar</button>
+    <button class="btn btn-warning" ng-click="cancel()">Cerrar</button>
   </div>
 </script>
