@@ -43,6 +43,7 @@ module.exports = function(config) {
       'bower_components/js-sha1/build/sha1.min.js',
       'bower_components/ngmap/build/scripts/ng-map.js',
       'bower_components/angular-openlayers-directive/dist/angular-openlayers-directive.min.js',
+      'bower_components/angular-socket-io/socket.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower
       'app/scripts/**/*.js',

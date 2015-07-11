@@ -26,7 +26,8 @@ angular
     'angular-loading-bar',
     'ngFileUpload',
     'openlayers-directive',
-    'ngMap'
+    'ngMap',
+    'btford.socket-io'
 
   ])
   .config(function ($translateProvider, $stateProvider, $urlRouterProvider) {
@@ -81,4 +82,4 @@ angular
     //$httpProvider.interceptors.push('dummyHttpInterceptor');
     $httpProvider.interceptors.push('authHttpInterceptor');
   }]);
-;
+

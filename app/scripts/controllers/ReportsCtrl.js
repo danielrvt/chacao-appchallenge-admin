@@ -1,12 +1,19 @@
 'use strict';
 
 angular.module('dndAdminTemplate')
-  .controller('ReportsCtrl', ['$scope', '$modal', 'resources', '$sessionStorage', 'restangularInstance', 'toastr', 'Upload', '$q', '$translate', function ($scope, $modal, resources, $sessionStorage, restangularInstance, toastr, Upload, $q, $translate) {
+  .controller('ReportsCtrl', ['$scope', '$modal', 'resources', '$sessionStorage', 'restangularInstance', 'toastr', 'Upload', '$q', '$translate', 'dndsocket', function ($scope, $modal, resources, $sessionStorage, restangularInstance, toastr, Upload, $q, $translate, dndsocket) {
 
     $scope.resPerPage = 50;
     $scope.reportsMeta = {};
     $scope.reports = [];
     $scope.markers = [];
+
+    dndsocket.on('message', function (evt, data) {
+      console.log(evt, data);
+
+      
+
+    });
 
     var markerClick = function () {
       restangularInstance.one(resources.report, this.id).get()
@@ -50,7 +57,6 @@ angular.module('dndAdminTemplate')
             map: map
           });
           google.maps.event.addListener(marker, 'click', markerClick);
-          console.log(r.location.coordinates, r.status);
         });
       };
     };
@@ -79,9 +85,10 @@ angular.module('dndAdminTemplate')
           _.each(results, function (result) {
             $scope.reports = $scope.reports.concat(result.data.plain().results);
           });
-          $scope.reports = _.filter($scope.reports, function (r) {
-            return r.status != 'RESOLVED' || r.status != 'INVALIDATED';
-          });
+          console.log($scope.reports.length, "REPORTS")
+          //$scope.reports = _.filter($scope.reports, function (r) {
+          //  return r.status != 'RESOLVED' || r.status != 'INVALIDATED';
+          //});
           return $scope.reports;
         }).then(createMarkersFromReports(map))
         .catch(function (err) {
