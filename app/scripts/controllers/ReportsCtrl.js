@@ -13,6 +13,7 @@ angular.module('dndAdminTemplate')
     dndsocket.on('message', function (data) {
       $scope.$apply(function () {
 
+        console.log(data);
         if ($scope.currentReports.length > 20) $scope.currentReports.pop();
         $scope.currentReports = [data].concat($scope.currentReports);
 
