@@ -15,6 +15,7 @@
 <script type="text/ng-template" id="reportModalTmpl.html">
   <div class="modal-header text-center">
     <h3 class="modal-title">{{translateType(report.type)}}</h3>
+    <h5>{{translateStatus(report.status)}}</h5>
   </div>
   <div class="modal-body">
     <div class="row">
@@ -23,7 +24,12 @@
     </div>
   </div>
   <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="ok()">OK</button>
-    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+
+    <button ng-repeat="status in nextPosibleStatus(report.status)"
+            class="btn btn-primary" ng-click="changeStatus(report, status)">
+      Marcar como {{translateStatus(status)}}
+    </button>
+
+    <button class="btn btn-warning" ng-click="cancel()">Cancelar</button>
   </div>
 </script>

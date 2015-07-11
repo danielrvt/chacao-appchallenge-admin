@@ -30,7 +30,6 @@ angular.module('dndAdminTemplate')
           modalInstance.result.then(function (result) {
             console.log(result)
           }, function () {
-            $log.info('Modal dismissed at: ' + new Date());
           });
 
         })
@@ -102,6 +101,24 @@ angular.module('dndAdminTemplate')
         'OTHER': 'Otro'
       };
       return dictionary[type];
+    };
+
+    $scope.translateStatus = function (status) {
+
+      var dictionary = {
+        'RECEIVED': 'Recibido',
+        'VALIDATED': 'Validado',
+        'INVALIDATED': 'Rechazado',
+        'RESOLVED': 'Resuelto'
+      };
+      return dictionary[status];
+    };
+
+    $scope.nextPosibleStatus = function (currentStatus) {
+      console.log(currentStatus);
+      if (currentStatus == 'RECEIVED') return ['VALIDATED', 'INVALIDATED', 'RESOLVED'];
+      if (currentStatus == 'VALIDATED') return ['INVALIDATED', 'RESOLVED'];
+      return [];
     };
 
     $scope.ok = function () {
