@@ -7,12 +7,17 @@ angular.module('dndAdminTemplate')
     $scope.reportsMeta = {};
     $scope.reports = [];
     $scope.markers = [];
+    $scope.map;
+    $scope.currentReports = []
 
-    dndsocket.on('message', function (evt, data) {
-      console.log(evt, data);
+    dndsocket.on('message', function (data) {
+      console.log(data.photo_url);
 
-      
+      if ($scope.currentReports.length > 20) $scope.currentReports.pop();
+      $scope.currentReports = [data].concat($scope.currentReports);
 
+      console.log($scope.currentReports);
+      createMarkersFromReports($scope.map)([data])
     });
 
     var markerClick = function () {
@@ -20,7 +25,7 @@ angular.module('dndAdminTemplate')
         .then(function (resp) {
           var report = resp.data.plain();
           console.log(report);
-          if (!report.description && !report.photo_url) return;
+          //if (!report.description && !report.photo_url) return;
 
           var modalInstance = $modal.open({
             animation: $scope.animationsEnabled,
@@ -96,6 +101,20 @@ angular.module('dndAdminTemplate')
         });
     });
 
+    $scope.translateType = function (type) {
+      var dictionary = {
+        'CRIME': 'Delito',
+        'MEDICAL_ASSIST': 'Asistencia Médica',
+        'WATER_LEAK': 'Bote de Agua',
+        'TRAFFIC_ACCIDENT': 'Accidente de Tránsito',
+        'BROKEN_LIGHT': 'Alumbrado Dañado',
+        'TRAFFIC_LIGHTS': 'Semáforo Dañado',
+        'TRASH': 'Basura',
+        'BROKEN_STREET': 'Hueco en la Vía',
+        'OTHER': 'Otro'
+      };
+      return dictionary[type];
+    };
 
   }]).controller('ReportModalCtrl', ['$scope', '$modalInstance', 'report', 'resources', '$sessionStorage', 'restangularInstance', 'toastr', 'Upload', '$q', '$translate', function ($scope, $modalInstance, report, resources, $sessionStorage, restangularInstance, toastr, Upload, $q, $translate) {
 
