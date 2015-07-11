@@ -3,12 +3,11 @@
 angular.module('dndAdminTemplate')
   .factory('dndsocket', ['socketFactory', '$sessionStorage', function (socketFactory, $sessionStorage) {
 
-
-    //var myIoSocket = io.connect('http://ec2-52-10-59-85.us-west-2.compute.amazonaws.com:5000/reports');
-    var myIoSocket = io.connect('http://localhost:3000');
+    /*var myIoSocket = io.connect('http://ec2-52-10-59-85.us-west-2.compute.amazonaws.com:5000/reports');
+    //var myIoSocket = io.connect('http://localhost:3000');
 
     myIoSocket.on('connect', function (err) {
-      console.log(err, $sessionStorage.session.cookieId);
+      console.log("Conectado", err, $sessionStorage.session.cookieId);
       myIoSocket.emit('register', $sessionStorage.session.cookieId)
     });
 
@@ -20,7 +19,18 @@ angular.module('dndAdminTemplate')
       ioSocket: myIoSocket
     });
 
-    return mySocket;
+    return mySocket;*/
+    var namespace = '/reports'; // change to an empty string to use the global namespace
+    var socket = io.connect('http://ec2-52-10-59-85.us-west-2.compute.amazonaws.com:5000' + namespace);
+    socket.on('connect', function() {
+      socket.emit('register', {cookie_id: 'e57fea1586d87bd467d00199ed3825ab93457c5333909762e4f5b15cfe3ebd86'});
+    });
+    socket.on('message', function(json) {
+      console.log("message", json);
+    });
+
+    return socket;
+
   }]);
 
 /*

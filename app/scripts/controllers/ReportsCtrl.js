@@ -11,13 +11,13 @@ angular.module('dndAdminTemplate')
     $scope.currentReports = []
 
     dndsocket.on('message', function (data) {
-      console.log(data.photo_url);
+      $scope.$apply(function () {
 
-      if ($scope.currentReports.length > 20) $scope.currentReports.pop();
-      $scope.currentReports = [data].concat($scope.currentReports);
+        if ($scope.currentReports.length > 20) $scope.currentReports.pop();
+        $scope.currentReports = [data].concat($scope.currentReports);
 
-      console.log($scope.currentReports);
-      createMarkersFromReports($scope.map)([data])
+        createMarkersFromReports($scope.map)([data])
+      });
     });
 
     var markerClick = function () {
